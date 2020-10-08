@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct AddToCartView: View {
-    @Binding var showAddToCart:Bool
     var body: some View {
         VStack {
             HStack (spacing: 20){
                 Button(action:{
-                    showAddToCart.toggle()
+                    
                 }){
                     Image(systemName: "chevron.left")
                         .font(.title)
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                 }
                 Text("My Cart")
                     .font(.title2)
@@ -36,8 +35,8 @@ struct AddToCartView: View {
     }
 }
 
-//struct DummyFile_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddToCartView()
-//    }
-//}
+struct DummyFile_Previews: PreviewProvider {
+    static var previews: some View {
+        AddToCartView()
+    }
+}

@@ -31,7 +31,6 @@ struct ForgotPassword: View {
                         Image("applogo")
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
                         Text("Enter your registered email address")
-                            .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(self.color)
                             .padding(.top, 35)
