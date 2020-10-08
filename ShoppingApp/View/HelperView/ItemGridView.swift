@@ -39,7 +39,7 @@ struct ItemGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(20)
-                        .matchedGeometryEffect(id: dressObject.image, in: animation)
+//                        .matchedGeometryEffect(id: dressObject.image, in: animation)
                 }
             }
             

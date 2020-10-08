@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DressDetailView: View {
     @Binding var dressModel : DressModel!
-    //    @Binding var show: Bool
+    @State var showAddtoCard = false
     var animation: Namespace.ID
     @State var selectedColor = Color.white
     @State var count = 1
@@ -21,6 +21,9 @@ struct DressDetailView: View {
                 Text("")
             }.navigationTitle("")
             .navigationBarHidden(true)
+            NavigationLink(destination: AddToCartView(), isActive: self.$showAddtoCard) {
+                Text("")
+            }.hidden()
             VStack {
                 HStack {
                     VStack(alignment: .leading,spacing: 5){
@@ -45,7 +48,7 @@ struct DressDetailView: View {
                     }
                     Spacer(minLength: 0)
                     Button(action: {
-                        
+                        showAddtoCard.toggle()
                     }){
                         Image(systemName: "cart")
                             .font(.title)
@@ -81,7 +84,7 @@ struct DressDetailView: View {
                     Image(dressModel.image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .matchedGeometryEffect(id: dressModel.image, in: animation)
+//                        .matchedGeometryEffect(id: dressModel.image, in: animation)
                     
                 }
                 .padding()
@@ -161,7 +164,7 @@ struct DressDetailView: View {
                         .padding(.horizontal)
                         Spacer(minLength: 0)
                         Button (action: {
-                            
+                            showAddtoCard.toggle()
                         }){
                             Text("BUY")
                                 .font(.title2)

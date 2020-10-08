@@ -13,12 +13,15 @@ struct DashboardView: View {
     @Namespace var animation
     @State var selectedDress: DressModel!
     @State var show = false
+    @State var showAddToCart = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView{
             ZStack {
-//                , show: $show
                 NavigationLink(destination: DressDetailView(dressModel: $selectedDress, animation: animation), isActive: self.$show) {
+                    Text("")
+                }.hidden()
+                NavigationLink(destination: AddToCartView(), isActive: self.$showAddToCart) {
                     Text("")
                 }.hidden()
                 VStack (spacing: 0){
@@ -42,7 +45,7 @@ struct DashboardView: View {
                             
                             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top), content: {
                                 Button(action:{
-                                    
+                                    showAddToCart.toggle()
                                 }){
                                     Image(systemName: "cart")
                                         .font(.title)
@@ -60,10 +63,6 @@ struct DashboardView: View {
                                         .font(Font.system(size: 12))
                                         .offset(x:5, y: -10)
                                 }
-    //                            Circle()
-    //                                .fill(Color.red)
-    //                                .frame(width: 15, height: 15)
-    //                                .offset(x:5, y: -10)
                             })
                             
                             Button(action:{
@@ -84,7 +83,6 @@ struct DashboardView: View {
                     }
                     .padding()
                     .padding(.top, UIApplication.shared.windows.first?.safeAreaInsets.top)
-    //                .background(Color.white)
                     .background(Color("p1").ignoresSafeArea(.all, edges: .top))
                     .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
                     
@@ -126,9 +124,6 @@ struct DashboardView: View {
                     })
                 }
                 .background(Color.black.opacity(0.05).ignoresSafeArea(.all, edges: .all))
-//                if selectedDress != nil && show {
-//                    DressDetailView(dressModel: $selectedDress, show: $show, animation: animation)
-//                }
             }
             .ignoresSafeArea(.all, edges: .top)
             .navigationBarHidden(true)
