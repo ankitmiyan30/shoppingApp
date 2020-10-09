@@ -106,16 +106,6 @@ struct MainView: View {
                                         .offset(x:5, y: -10)
                                 }
                             })
-                            
-//                            Button(action:{
-//                                UserDefaults.standard.removeObject(forKey: "isUserLoggin")
-//                                NotificationCenter.default.post(name: NSNotification.Name("isUserLoggin"), object: nil)
-//                            }){
-//                                Image("logout")
-//                                    .font(.title)
-//                                    .foregroundColor(.white)
-//                            }
-//                            .accentColor(.white)
                         }
                         
                         Text("MyShop")
