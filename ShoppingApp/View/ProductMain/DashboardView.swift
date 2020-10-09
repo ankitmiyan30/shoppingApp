@@ -9,16 +9,56 @@ import SwiftUI
 import Firebase
 import TTGSnackbar
 struct DashboardView: View {
+    @State var index = ""
+    @State var showDrawer = false
+    var body : some View {
+        ZStack {
+            (self.showDrawer ? Color("p1").opacity(0.7) : Color.clear ).edgesIgnoringSafeArea(.all)
+            ZStack(alignment: .leading){
+                //Draser menu view
+                MenuView()
+            }
+            ZStack(alignment: .topTrailing){
+                MainView(showDrawer: $showDrawer)
+                    .scaleEffect(self.showDrawer ? 0.8 : 1)
+                    .offset(x: self.showDrawer ? 170 : 0, y: self.showDrawer ? 50 : 0)
+                    .disabled(self.showDrawer ? true : false)
+                
+                Button(action: {
+                    withAnimation(.spring()){
+                        self.showDrawer.toggle()
+                    }
+                }){
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(.white)
+                }
+                .padding()
+                .opacity(self.showDrawer ? 1 : 0)
+            }
+            
+            
+        }
+        
+        
+        
+    }
+}
+struct MainView: View {
     @State var selectedTab = scrollsTab[0]
     @Namespace var animation
     @State var selectedDress: DressModel!
-    @State var show = false
+    @State var tabWiseModel:[DressModel]!
+    @State var showDetails = false
     @State var showAddToCart = false
+    @Binding var showDrawer : Bool
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
-        NavigationView{
+        NavigationView {
             ZStack {
-                NavigationLink(destination: DressDetailView(dressModel: $selectedDress, animation: animation), isActive: self.$show) {
+                NavigationLink(destination: DressDetailView(dressModel: $selectedDress, animation: animation), isActive: self.$showDetails) {
                     Text("")
                 }.hidden()
                 NavigationLink(destination: AddToCartView(), isActive: self.$showAddToCart) {
@@ -28,7 +68,9 @@ struct DashboardView: View {
                     ZStack {
                         HStack(spacing: 15){
                             Button(action:{
-                                
+                                withAnimation(.spring()){
+                                    showDrawer.toggle()
+                                }
                             }){
                                 Image(systemName: "line.horizontal.3.decrease")
                                     .font(.title)
@@ -65,15 +107,15 @@ struct DashboardView: View {
                                 }
                             })
                             
-                            Button(action:{
-                                UserDefaults.standard.removeObject(forKey: "isUserLoggin")
-                                NotificationCenter.default.post(name: NSNotification.Name("isUserLoggin"), object: nil)
-                            }){
-                                Image("logout")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            }
-                            .accentColor(.white)
+//                            Button(action:{
+//                                UserDefaults.standard.removeObject(forKey: "isUserLoggin")
+//                                NotificationCenter.default.post(name: NSNotification.Name("isUserLoggin"), object: nil)
+//                            }){
+//                                Image("logout")
+//                                    .font(.title)
+//                                    .foregroundColor(.white)
+//                            }
+//                            .accentColor(.white)
                         }
                         
                         Text("MyShop")
@@ -113,7 +155,7 @@ struct DashboardView: View {
                                     ItemGridView(dressObject: dress,animation: animation).onTapGesture {
                                         withAnimation(.easeIn) {
                                             selectedDress = dress
-                                            show.toggle()
+                                            showDetails.toggle()
                                         }
                                     }
                                 }
@@ -123,7 +165,7 @@ struct DashboardView: View {
                         }
                     })
                 }
-                .background(Color.black.opacity(0.05).ignoresSafeArea(.all, edges: .all))
+                .background(Color.white.ignoresSafeArea(.all, edges: .all))
             }
             .ignoresSafeArea(.all, edges: .top)
             .navigationBarHidden(true)
@@ -134,8 +176,10 @@ struct DashboardView: View {
     }
 }
 
-struct DashboardView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         DashboardView()
     }
 }
+
+

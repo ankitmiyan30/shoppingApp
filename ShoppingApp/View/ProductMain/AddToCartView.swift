@@ -93,8 +93,7 @@ struct AddToCartView: View {
                             .foregroundColor(.gray)
                             .frame(alignment: .leading)
                             .padding(.leading, 16)
-                        Divider()
-                            .background(Color.gray)
+//                        Divider()
                         VStack(alignment: .leading, spacing: 16) {
                             HStack{
                                 Text("Price (2 Items)")
@@ -123,8 +122,7 @@ struct AddToCartView: View {
                                     .lineLimit(1)
                                     .foregroundColor(.green)
                             }
-                            Divider()
-                                .background(Color.gray)
+//                            Divider()
                             HStack{
                                 Text("Total Amount")
                                     .fontWeight(.bold)
@@ -141,8 +139,7 @@ struct AddToCartView: View {
                         }
                         .padding()
                         .border(Color.gray.opacity(0.4), width: 0.5)
-                        Divider()
-                            .background(Color.gray)
+//                        Divider()
                         Text("You will save $600 on this order")
                             .lineLimit(1)
                             .foregroundColor(.green)
@@ -190,7 +187,7 @@ struct AddToCartView: View {
                 }
                 .padding(.horizontal)
                 .background(Color.white)
-                .frame(minWidth: 0, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: 100)
+                .frame(minWidth: 0, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxHeight: 60)
                 
             }
             .edgesIgnoringSafeArea([.top, .bottom])

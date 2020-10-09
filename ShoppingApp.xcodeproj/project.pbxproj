@@ -20,6 +20,7 @@
 		D6492512252B13AD00A244B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6492511252B13AC00A244B0 /* GoogleService-Info.plist */; };
 		D649252C252B150B00A244B0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649252B252B150B00A244B0 /* LoginView.swift */; };
 		D6492531252B151C00A244B0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6492530252B151C00A244B0 /* SignUpView.swift */; };
+		D656854025301E680062B19B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656853F25301E680062B19B /* MenuView.swift */; };
 		D656E6E5252D7C82004655E8 /* AddToCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656E6E4252D7C82004655E8 /* AddToCartView.swift */; };
 		D6593DE8252EF351008BA17D /* CartItemTilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6593DE7252EF351008BA17D /* CartItemTilesView.swift */; };
 		D6D40DA2252B1680003B50B7 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D40DA1252B1680003B50B7 /* Helper.swift */; };
@@ -73,6 +74,7 @@
 		D6492511252B13AC00A244B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D649252B252B150B00A244B0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D6492530252B151C00A244B0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		D656853F25301E680062B19B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		D656E6E4252D7C82004655E8 /* AddToCartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartView.swift; sourceTree = "<group>"; };
 		D6593DE7252EF351008BA17D /* CartItemTilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemTilesView.swift; sourceTree = "<group>"; };
 		D6D40DA1252B1680003B50B7 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -222,7 +224,6 @@
 			children = (
 				D6DC27AE252C8CFE00C12C3D /* ProductMain */,
 				D6DC27AD252C8CEE00C12C3D /* AuthenticationView */,
-				D6DC275A252C75C500C12C3D /* HelperView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -230,6 +231,11 @@
 		D64924E2252B088800A244B0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D6DC275B252C75DA00C12C3D /* HorizontalTabItem.swift */,
+				D6DC2763252C7EFD00C12C3D /* ItemGridView.swift */,
+				D6DC27FE252CA00000C12C3D /* CustomCorner.swift */,
+				D6DC2803252CA01B00C12C3D /* ColorButton.swift */,
+				D6593DE7252EF351008BA17D /* CartItemTilesView.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -249,18 +255,6 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		D6DC275A252C75C500C12C3D /* HelperView */ = {
-			isa = PBXGroup;
-			children = (
-				D6DC275B252C75DA00C12C3D /* HorizontalTabItem.swift */,
-				D6DC2763252C7EFD00C12C3D /* ItemGridView.swift */,
-				D6DC27FE252CA00000C12C3D /* CustomCorner.swift */,
-				D6DC2803252CA01B00C12C3D /* ColorButton.swift */,
-				D6593DE7252EF351008BA17D /* CartItemTilesView.swift */,
-			);
-			path = HelperView;
-			sourceTree = "<group>";
-		};
 		D6DC27AD252C8CEE00C12C3D /* AuthenticationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +272,7 @@
 				D6D40DB1252B2250003B50B7 /* DashboardView.swift */,
 				D6DC27F9252C969200C12C3D /* DressDetailView.swift */,
 				D656E6E4252D7C82004655E8 /* AddToCartView.swift */,
+				D656853F25301E680062B19B /* MenuView.swift */,
 			);
 			path = ProductMain;
 			sourceTree = "<group>";
@@ -528,6 +523,7 @@
 				D656E6E5252D7C82004655E8 /* AddToCartView.swift in Sources */,
 				D6DC275C252C75DA00C12C3D /* HorizontalTabItem.swift in Sources */,
 				D6DC27FA252C969200C12C3D /* DressDetailView.swift in Sources */,
+				D656854025301E680062B19B /* MenuView.swift in Sources */,
 				D6593DE8252EF351008BA17D /* CartItemTilesView.swift in Sources */,
 				D6492531252B151C00A244B0 /* SignUpView.swift in Sources */,
 				D6DC2764252C7EFD00C12C3D /* ItemGridView.swift in Sources */,
