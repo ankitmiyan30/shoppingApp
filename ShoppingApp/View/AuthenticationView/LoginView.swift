@@ -19,66 +19,73 @@ struct LoginView: View {
         ZStack {
             ZStack(alignment: .topTrailing ){
                 GeometryReader {_ in
-                    VStack {
-                        Image("applogo")
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-                        Text("Login in to your account")
-//                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(self.color)
-                            .padding(.top, 35)
-                        
-                        TextField("Email", text: self.$email)
-                            .autocapitalization(.none)
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.email == "" ? Color.red : self.color,lineWidth: 2))
-                            .padding(.top, 25)
-                        
-                        HStack {
-                            VStack {
-                                if visible {
-                                    TextField("Password", text: self.$pass)
-                                        .autocapitalization(.none)
-                                } else {
-                                    SecureField("Password", text: self.$pass)
-                                        .autocapitalization(.none)
+                    ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false) {
+                        VStack {
+                            Image("applogo")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding(20)
+                            
+                            
+                            Text("Login in to your account")
+                                //                            .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(self.color)
+                                .padding(.top, 35)
+                            
+                            TextField("Email", text: self.$email)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 4).stroke(self.email == "" ? Color.red : self.color,lineWidth: 2))
+                                .padding(.top, 25)
+                            
+                            HStack {
+                                VStack {
+                                    if visible {
+                                        TextField("Password", text: self.$pass)
+                                            .autocapitalization(.none)
+                                    } else {
+                                        SecureField("Password", text: self.$pass)
+                                            .autocapitalization(.none)
+                                    }
+                                }
+                                Button(action: {
+                                    self.visible.toggle()
+                                }){
+                                    Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                        .foregroundColor(self.color)
                                 }
                             }
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass == "" ? Color.red : self.color,lineWidth: 2))
+                            .padding(.top, 25)
+                            
+                            HStack{
+                                Spacer()
+                                Button(action: {
+                                    self.showForPasswordPage.toggle()
+                                }) {
+                                    Text("Forget password?")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(self.color)
+                                }
+                            }
+                            .padding(.top, 20)
                             Button(action: {
-                                self.visible.toggle()
+                                self.loginUser()
                             }){
-                                Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
-                                    .foregroundColor(self.color)
+                                Text("Log In")
+                                    .foregroundColor(.white)
+                                    .padding(.vertical)
+                                    .frame(width: UIScreen.main.bounds.width - 50)
                             }
+                            .background(LinearGradient(gradient: .init(colors: [Color.green, Color.red, Color.gray]), startPoint: .leading, endPoint: .trailing))
+                            .cornerRadius(10)
+                            .padding(.top, 25)
                         }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass == "" ? Color.red : self.color,lineWidth: 2))
-                        .padding(.top, 25)
-                        
-                        HStack{
-                            Spacer()
-                            Button(action: {
-                                self.showForPasswordPage.toggle()
-                            }) {
-                                Text("Forget password?")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(self.color)
-                            }
-                        }
-                        .padding(.top, 20)
-                        Button(action: {
-                            self.loginUser()
-                        }){
-                            Text("Log In")
-                                .foregroundColor(.white)
-                                .padding(.vertical)
-                                .frame(width: UIScreen.main.bounds.width - 50)
-                        }
-                        .background(LinearGradient(gradient: .init(colors: [Color.green, Color.red, Color.gray]), startPoint: .leading, endPoint: .trailing))
-                        .cornerRadius(10)
-                        .padding(.top, 25)
+                        .padding(.horizontal, 25)
                     }
-                    .padding(.horizontal, 25)
                 }
                 Button(action: {
                     self.show.toggle()

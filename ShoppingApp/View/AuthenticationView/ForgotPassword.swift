@@ -13,23 +13,14 @@ struct ForgotPassword: View {
     @State var color = Color.black.opacity(0.7)
     var body: some View {
         VStack {
-//            HStack{
-//                Button(action: {
-//
-//                }) {
-//                    Image(systemName: "chevron.left")
-//                        .font(.title2)
-//                        .foregroundColor(Color.red)
-//                }
-//                .padding()
-//            }.background(Color.red)
-//            .foregroundColor(.red)
-//            Spacer()
             ZStack {
                 GeometryReader{_ in
-                    VStack{
+                    ScrollView(/*@START_MENU_TOKEN@*/.vertical/*@END_MENU_TOKEN@*/, showsIndicators: false){
+                    VStack {
                         Image("applogo")
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(20)
                         Text("Enter your registered email address")
                             .fontWeight(.bold)
                             .foregroundColor(self.color)
@@ -55,6 +46,7 @@ struct ForgotPassword: View {
                         .padding(.top, 25)
                     }
                     .padding(.horizontal, 25)
+                    }
                 }
             }
             .navigationBarBackButtonHidden(false)

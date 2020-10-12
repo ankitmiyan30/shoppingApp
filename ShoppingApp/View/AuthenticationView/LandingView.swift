@@ -15,7 +15,7 @@ struct LandingView: View {
         NavigationView {
             VStack{
                 if self.status{
-                    DashboardView()
+                    DashboardView(showDrawer: false)
                 }
                 else{
                     ZStack{

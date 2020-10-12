@@ -10,13 +10,13 @@ import Firebase
 import TTGSnackbar
 struct DashboardView: View {
     @State var index = ""
-    @State var showDrawer = false
+    @State var showDrawer:Bool
     var body : some View {
         ZStack {
             (self.showDrawer ? Color("p1").opacity(0.7) : Color.clear ).edgesIgnoringSafeArea(.all)
             ZStack(alignment: .leading){
                 //Draser menu view
-                MenuView()
+                MenuView(showDrawer: $showDrawer)
             }
             ZStack(alignment: .topTrailing){
                 MainView(showDrawer: $showDrawer)
@@ -53,7 +53,7 @@ struct MainView: View {
     @State var showDetails = false
     @State var showAddToCart = false
     @Binding var showDrawer : Bool
-    
+    @State private var searchText = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView {
@@ -77,13 +77,13 @@ struct MainView: View {
                                     .foregroundColor(.white)
                             }
                             Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
-                            Button(action:{
-                                
-                            }){
-                                Image(systemName: "magnifyingglass")
-                                    .font(.title)
-                                    .foregroundColor(.white)
-                            }
+//                            Button(action:{
+//
+//                            }){
+//                                Image(systemName: "magnifyingglass")
+//                                    .font(.title)
+//                                    .foregroundColor(.white)
+//                            }
                             
                             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top), content: {
                                 Button(action:{
@@ -120,6 +120,7 @@ struct MainView: View {
                     
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack {
+                            SearchBar(text: $searchText)
                             HStack{
                                 Text(selectedTab)
                                     .font(.title2)
@@ -141,7 +142,9 @@ struct MainView: View {
                                 .padding(.top,10)
                             })
                             LazyVGrid(columns: Array(repeating: GridItem(.flexible(),spacing: 15), count: 2),spacing: 15){
-                                ForEach(dressModelGirls){dress in
+                                
+                                
+                                ForEach(dressModelGirls.filter({searchText.isEmpty ? true : $0.title.contains(searchText)})){dress in
                                     ItemGridView(dressObject: dress,animation: animation).onTapGesture {
                                         withAnimation(.easeIn) {
                                             selectedDress = dress
@@ -149,6 +152,20 @@ struct MainView: View {
                                         }
                                     }
                                 }
+                                
+                                
+                                
+                                
+                                
+                                
+//                                ForEach(dressModelGirls){dress in
+//                                    ItemGridView(dressObject: dress,animation: animation).onTapGesture {
+//                                        withAnimation(.easeIn) {
+//                                            selectedDress = dress
+//                                            showDetails.toggle()
+//                                        }
+//                                    }
+//                                }
                             }
                             .padding()
                             .padding(.top,10)
@@ -166,10 +183,10 @@ struct MainView: View {
     }
 }
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        DashboardView()
-    }
-}
+//struct MainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DashboardView()
+//    }
+//}
 
 
