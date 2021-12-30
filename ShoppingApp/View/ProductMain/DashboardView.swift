@@ -47,14 +47,20 @@ struct DashboardView: View {
 }
 struct MainView: View {
     @State var selectedTab = scrollsTab[0]
-    @Namespace var animation
+    @State var index = 0
     @State var selectedDress: DressModel!
-    @State var tabWiseModel:[DressModel]!
+//    @State var tabWiseModel:[DressModel]!
     @State var showDetails = false
     @State var showAddToCart = false
-    @Binding var showDrawer : Bool
     @State private var searchText = ""
+    
+    
+    @Namespace var animation
+    
+    @Binding var showDrawer : Bool
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -134,17 +140,15 @@ struct MainView: View {
                             
                             ScrollView(.horizontal, showsIndicators: false, content: {
                                 HStack(spacing: 15) {
-                                    ForEach(scrollsTab, id: \.self) { tab in
-                                        HorizontalTabItem(title: tab, selectedTab: $selectedTab, animation: animation)
+                                    ForEachWithIndex(scrollsTab, id: \.self) { position ,tab in
+                                        HorizontalTabItem(title: tab, index: position, selectedTab: $selectedTab, selectedIndex: $index, animation: animation)
                                     }
                                 }
                                 .padding(.horizontal)
                                 .padding(.top,10)
                             })
                             LazyVGrid(columns: Array(repeating: GridItem(.flexible(),spacing: 15), count: 2),spacing: 15){
-                                
-                                
-                                ForEach(dressModelGirls.filter({searchText.isEmpty ? true : $0.title.contains(searchText)})){dress in
+                                ForEach(arrayOfDressModels[index].filter({searchText.isEmpty ? true : $0.title.contains(searchText)})){dress in
                                     ItemGridView(dressObject: dress,animation: animation).onTapGesture {
                                         withAnimation(.easeIn) {
                                             selectedDress = dress
@@ -152,20 +156,6 @@ struct MainView: View {
                                         }
                                     }
                                 }
-                                
-                                
-                                
-                                
-                                
-                                
-//                                ForEach(dressModelGirls){dress in
-//                                    ItemGridView(dressObject: dress,animation: animation).onTapGesture {
-//                                        withAnimation(.easeIn) {
-//                                            selectedDress = dress
-//                                            showDetails.toggle()
-//                                        }
-//                                    }
-//                                }
                             }
                             .padding()
                             .padding(.top,10)
@@ -175,13 +165,17 @@ struct MainView: View {
                 .background(Color.white.ignoresSafeArea(.all, edges: .all))
             }
             .ignoresSafeArea(.all, edges: .top)
-            .navigationBarHidden(true)
             .navigationTitle("")
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea([.top, .bottom])
         }
+        
     }
+    
+    
 }
+
+
 
 //struct MainView_Previews: PreviewProvider {
 //    static var previews: some View {
@@ -190,3 +184,60 @@ struct MainView: View {
 //}
 
 
+
+
+
+
+public struct ForEachWithIndex<Data: RandomAccessCollection, ID: Hashable, Content: View>: View {
+    public var data: Data
+    public var content: (_ index: Data.Index, _ element: Data.Element) -> Content
+    var id: KeyPath<Data.Element, ID>
+
+    public init(_ data: Data, id: KeyPath<Data.Element, ID>, content: @escaping (_ index: Data.Index, _ element: Data.Element) -> Content) {
+        self.data = data
+        self.id = id
+        self.content = content
+    }
+
+    public var body: some View {
+        ForEach(
+            zip(self.data.indices, self.data).map { index, element in
+                IndexInfo(
+                    index: index,
+                    id: self.id,
+                    element: element
+                )
+            },
+            id: \.elementID
+        ) { indexInfo in
+            self.content(indexInfo.index, indexInfo.element)
+        }
+    }
+}
+
+extension ForEachWithIndex where ID == Data.Element.ID, Content: View, Data.Element: Identifiable {
+    public init(_ data: Data, @ViewBuilder content: @escaping (_ index: Data.Index, _ element: Data.Element) -> Content) {
+        self.init(data, id: \.id, content: content)
+    }
+}
+
+extension ForEachWithIndex: DynamicViewContent where Content: View {
+}
+
+private struct IndexInfo<Index, Element, ID: Hashable>: Hashable {
+    let index: Index
+    let id: KeyPath<Element, ID>
+    let element: Element
+
+    var elementID: ID {
+        self.element[keyPath: self.id]
+    }
+
+    static func == (_ lhs: IndexInfo, _ rhs: IndexInfo) -> Bool {
+        lhs.elementID == rhs.elementID
+    }
+
+    func hash(into hasher: inout Hasher) {
+        self.elementID.hash(into: &hasher)
+    }
+}

@@ -19,7 +19,8 @@ struct DressDetailView: View {
         ZStack {
             NavigationView {
                 Text("")
-            }.navigationTitle("")
+            }
+            .navigationTitle("")
             .navigationBarHidden(true)
             NavigationLink(destination: AddToCartView(), isActive: self.$showAddtoCard) {
                 Text("")

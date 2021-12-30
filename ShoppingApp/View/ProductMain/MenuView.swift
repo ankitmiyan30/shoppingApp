@@ -34,7 +34,7 @@ struct MenuView: View {
             }
             .padding(.bottom, 50)
             
-            ForEach(scrollsTab.indices) { i in
+            ForEach(drawerMenu.indices) { i in
                 Button(action: {
                     self.drawerMenuItemClick(index: i)
                     
